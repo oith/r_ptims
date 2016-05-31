@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>eims</groupId>
-    <artifactId>educational-institute-management-system</artifactId>
+    <artifactId>eims</artifactId>
     <packaging>war</packaging>
     <version>1.0.0</version>
     <name>educational-institute-management-system</name>
