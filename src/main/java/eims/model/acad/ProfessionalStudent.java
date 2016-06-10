@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "STUDENT")
-public abstract class Student extends Person {
+@Table(name = "PROFESSIONAL_STUDENT")
+public class ProfessionalStudent extends Student {
 
 }

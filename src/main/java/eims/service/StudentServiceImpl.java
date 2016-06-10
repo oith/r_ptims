@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import eims.dao.StudentDao;
-import eims.model.acad.Student;
+import eims.model.acad.ProfessionalStudent;
 import java.util.Objects;
 
 @Service("studentService")
@@ -17,11 +17,11 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentDao dao;
 
-    public Student findById(Long id) {
+    public ProfessionalStudent findById(Long id) {
         return dao.findById(id);
     }
 
-    public void saveStudent(Student student) {
+    public void saveStudent(ProfessionalStudent student) {
         dao.saveStudent(student);
     }
 
@@ -31,8 +31,8 @@ public class StudentServiceImpl implements StudentService {
      * It will be updated in db once transaction ends. 
      */
     @Override
-    public void updateStudent(Student student) {
-        Student entity = dao.findById(student.getId());
+    public void updateStudent(ProfessionalStudent student) {
+        ProfessionalStudent entity = dao.findById(student.getId());
         if (entity != null) {
             entity.setName(student.getName());
             entity.setGender(student.getGender());
@@ -48,17 +48,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findAllStudents() {
+    public List<ProfessionalStudent> findAllStudents() {
         return dao.findAllStudents();
     }
 
     @Override
-    public Student findStudentByCode(String code) {
+    public ProfessionalStudent findStudentByCode(String code) {
         return dao.findStudentByCode(code);
     }
 
     public boolean isStudentCodeUnique(Long id, String code) {
-        Student student = findStudentByCode(code);
+        ProfessionalStudent student = findStudentByCode(code);
         return (student == null || ((id != null) && (Objects.equals(student.getId(), id))));
     }
 

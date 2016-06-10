@@ -5,18 +5,18 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import eims.model.acad.Student;
+import eims.model.acad.ProfessionalStudent;
 
 @Repository("studentDao")
-public class StudentDaoImpl extends AbstractDao<Long, Student> implements StudentDao {
+public class StudentDaoImpl extends AbstractDao<Long, ProfessionalStudent> implements StudentDao {
 
     @Override
-    public Student findById(Long id) {
+    public ProfessionalStudent findById(Long id) {
         return getByKey(id);
     }
 
     @Override
-    public void saveStudent(Student employee) {
+    public void saveStudent(ProfessionalStudent employee) {
         persist(employee);
     }
 
@@ -30,15 +30,15 @@ public class StudentDaoImpl extends AbstractDao<Long, Student> implements Studen
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Student> findAllStudents() {
+    public List<ProfessionalStudent> findAllStudents() {
         Criteria criteria = createEntityCriteria();
-        return (List<Student>) criteria.list();
+        return (List<ProfessionalStudent>) criteria.list();
     }
 
     @Override
-    public Student findStudentByCode(String code) {
+    public ProfessionalStudent findStudentByCode(String code) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("code", code));
-        return (Student) criteria.uniqueResult();
+        return (ProfessionalStudent) criteria.uniqueResult();
     }
 }

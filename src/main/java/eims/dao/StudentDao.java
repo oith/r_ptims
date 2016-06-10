@@ -1,18 +1,18 @@
 package eims.dao;
 
 import java.util.List;
-import eims.model.acad.Student;
+import eims.model.acad.ProfessionalStudent;
 
 public interface StudentDao {
 
-    Student findById(Long id);
+    ProfessionalStudent findById(Long id);
 
-    void saveStudent(Student employee);
+    void saveStudent(ProfessionalStudent employee);
 
     void deleteStudentByCode(String code);
 
-    List<Student> findAllStudents();
+    List<ProfessionalStudent> findAllStudents();
 
-    Student findStudentByCode(String code);
+    ProfessionalStudent findStudentByCode(String code);
 
 }

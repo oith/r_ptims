@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>JAVA Enrollments</title>
+        <title>EIMS</title>
 
         <style>
             tr:first-child{

@@ -12,7 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import eims.model.acad.Student;
+import eims.model.acad.ProfessionalStudent;
 import eims.service.StudentService;
 
 @Controller
@@ -31,7 +31,7 @@ public class StdController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String listStudents(ModelMap model) {
 
-        List<Student> students = studentService.findAllStudents();
+        List<ProfessionalStudent> students = studentService.findAllStudents();
         model.addAttribute("students", students);
         return "std/index";
     }
@@ -41,7 +41,7 @@ public class StdController {
      */
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
     public String newStudent(ModelMap model) {
-        Student student = new Student();
+        ProfessionalStudent student = new ProfessionalStudent();
         model.addAttribute("student", student);
         model.addAttribute("edit", false);
         return "std/registration";
@@ -52,7 +52,7 @@ public class StdController {
      * saving student in database. It also validates the user input
      */
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
-    public String saveStudent(@Valid Student student, BindingResult result,
+    public String saveStudent(@Valid ProfessionalStudent student, BindingResult result,
             ModelMap model) {
 
         if (result.hasErrors()) {
@@ -61,7 +61,7 @@ public class StdController {
 
         /*
          * Preferred way to achieve uniqueness of field [code] should be implementing custom @Unique annotation 
-         * and applying it on field [code] of Model class [Student].
+         * and applying it on field [code] of Model class [ProfessionalStudent].
          * 
          * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
          * framework as well while still using internationalized messages.
@@ -85,7 +85,7 @@ public class StdController {
      */
     @RequestMapping(value = {"/edit-{code}-student"}, method = RequestMethod.GET)
     public String editStudent(@PathVariable String code, ModelMap model) {
-        Student student = studentService.findStudentByCode(code);
+        ProfessionalStudent student = studentService.findStudentByCode(code);
         model.addAttribute("student", student);
         model.addAttribute("edit", true);
         return "std/registration";
@@ -96,7 +96,7 @@ public class StdController {
      * updating student in database. It also validates the user input
      */
     @RequestMapping(value = {"/edit-{code}-student"}, method = RequestMethod.POST)
-    public String updateStudent(@Valid Student student, BindingResult result,
+    public String updateStudent(@Valid ProfessionalStudent student, BindingResult result,
             ModelMap model, @PathVariable String code) {
 
         if (result.hasErrors()) {

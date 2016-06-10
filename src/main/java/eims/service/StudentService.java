@@ -2,21 +2,21 @@ package eims.service;
 
 import java.util.List;
 
-import eims.model.acad.Student;
+import eims.model.acad.ProfessionalStudent;
 
 public interface StudentService {
 
-    Student findById(Long id);
+    ProfessionalStudent findById(Long id);
 
-    void saveStudent(Student employee);
+    void saveStudent(ProfessionalStudent employee);
 
-    void updateStudent(Student employee);
+    void updateStudent(ProfessionalStudent employee);
 
     void deleteStudentByCode(String code);
 
-    List<Student> findAllStudents();
+    List<ProfessionalStudent> findAllStudents();
 
-    Student findStudentByCode(String code);
+    ProfessionalStudent findStudentByCode(String code);
 
     boolean isStudentCodeUnique(Long id, String code);
 
