@@ -1,44 +1,27 @@
 package eims.model.hr;
 
-import java.io.Serializable;
+import eims.model.common.Person;
 import java.math.BigDecimal;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "EMP")
-public class Employee implements Serializable {
+@Table(name = "EMPLOYEE")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Employee extends Person {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotEmpty
-    @Column(name = "CODE", unique = true, nullable = false)
-    private String code;
-
-    @Size(min = 3, max = 50)
-    @Column(name = "NAME", nullable = false)
-    private String name;
-
-    @Column(name = "GENDER", length = 6, nullable = true)
-    private String gender;
-
-    @Column(name = "FB", length = 30, nullable = false)
-    private String fbId;
 
     @NotNull
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -52,21 +35,17 @@ public class Employee implements Serializable {
     @Column(name = "SALARY", nullable = false)
     private BigDecimal salary;
 
-    public Long getId() {
-        return id;
-    }
+    @NotNull
+    @Digits(integer = 8, fraction = 2)
+    @Column(name = "Basic", nullable = false)
+    private BigDecimal basic;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NotNull
+    @Digits(integer = 8, fraction = 2)
+    @Column(name = "House_rent", nullable = false)
+    private BigDecimal houseRent;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public LocalDate getJoiningDate() {
         return joiningDate;
@@ -84,58 +63,23 @@ public class Employee implements Serializable {
         this.salary = salary;
     }
 
-    public String getCode() {
-        return code;
+    public BigDecimal getBasic() {
+        return basic;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setBasic(BigDecimal basic) {
+        this.basic = basic;
     }
 
-    public String getGender() {
-        return gender;
+    public BigDecimal getHouseRent() {
+        return houseRent;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setHouseRent(BigDecimal houseRent) {
+        this.houseRent = houseRent;
     }
-
-    public String getFbId() {
-        return fbId;
-    }
-
-    public void setFbId(String fbId) {
-        this.fbId = fbId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Employee other = (Employee) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" + "id=" + id + ", code=" + code + ", name=" + name + ", gender=" + gender + ", fbId=" + fbId + ", joiningDate=" + joiningDate + ", salary=" + salary + '}';
-    }
+    
+    
+    
 
 }
