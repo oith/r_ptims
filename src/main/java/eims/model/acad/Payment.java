@@ -24,9 +24,9 @@ public class Payment extends AbstractEntity {
     @Basic(optional = false)
     @Column(name = "CODE", unique = true, length = 20, nullable = false)
     private String code;
-    @JoinColumn(name = "ADMISSION_ID", nullable = true)
+    @JoinColumn(name = "REGISTRATION_ID", nullable = true)
     @ManyToOne(optional = true)
-    private Admission admission;
+    private Registration registration;
     @Temporal(TemporalType.DATE)
     @Column(name = "PAYMENT_DATE", nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -62,12 +62,12 @@ public class Payment extends AbstractEntity {
         this.paymentDate = paymentDate;
     }
 
-    public Admission getAdmission() {
-        return admission;
+    public Registration getRegistration() {
+        return registration;
     }
 
-    public void setAdmission(Admission admission) {
-        this.admission = admission;
+    public void setRegistration(Registration registration) {
+        this.registration = registration;
     }
 
 }

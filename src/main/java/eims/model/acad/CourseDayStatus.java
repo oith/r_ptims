@@ -1,6 +1,7 @@
 package eims.model.acad;
 
 public enum CourseDayStatus {
+    PENDING("Pending"),
     DONE("Done"),
     CANCEL("Cancel");
 

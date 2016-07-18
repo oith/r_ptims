@@ -23,7 +23,7 @@ public class ProcOutCourseSchedule extends AbstractEntity {
     @ManyToOne(optional = false)
     private CourseFounded courseFounded;
     @JoinColumn(name = "ROOM_ID", nullable = false)
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = false)
     private Room room;
     @Temporal(TemporalType.DATE)
     @Column(name = "CLASS_DATE", nullable = false)
@@ -39,7 +39,7 @@ public class ProcOutCourseSchedule extends AbstractEntity {
     private Date endTime;
     @Enumerated(EnumType.STRING)
     @Column(name = "COURSE_DAY_STATUS", length = 30)
-    private CourseDayStatus courseDayStatus;
+    private CourseDayStatus courseDayStatus = CourseDayStatus.PENDING;
 
     public ProcOutCourseSchedule() {
     }

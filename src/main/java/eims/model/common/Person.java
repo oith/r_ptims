@@ -20,8 +20,12 @@ public class Person extends AbstractEntity {
     @Column(name = "CODE", length = 20, unique = true, nullable = false)
     private String code;
     @Size(min = 3, max = 50)
-    @Column(name = "NAME", nullable = false)
-    private String name;
+    @Column(name = "FULL_NAME", nullable = false)
+    private String fullName;
+    @Column(name = "FATHER_NAME", length = 100)
+    private String fatherName;
+    @Column(name = "MOTHER_NAME", length = 100)
+    private String motherName;
     @Enumerated(EnumType.STRING)
     @Column(name = "GENDER", length = 6)
     private Gender gender;
@@ -31,18 +35,12 @@ public class Person extends AbstractEntity {
     @Past
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dob;
-    @Column(name = "FB", length = 30, unique = true)
+    @Column(name = "FB_ID", length = 30, unique = true)
     private String fbId;
     @Embedded
     private Address address;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+  
 
     public String getCode() {
         return code;
@@ -82,6 +80,30 @@ public class Person extends AbstractEntity {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
+    public String getMotherName() {
+        return motherName;
+    }
+
+    public void setMotherName(String motherName) {
+        this.motherName = motherName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
 }

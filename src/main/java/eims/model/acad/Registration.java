@@ -15,32 +15,32 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "ADMISSION")
+@Table(name = "REGISTRATION")
 @XmlRootElement
-public class Admission extends AbstractEntity {
+public class Registration extends AbstractEntity {
 
     @Basic(optional = false)
     @Column(name = "CODE", unique = true, length = 20, nullable = false)
     private String code;
-    
+
     @JoinColumn(name = "COURSE_FOUNDED_ID", nullable = false)
     @ManyToOne(optional = false)
     private CourseFounded courseFounded;
-    
+
     @JoinColumn(name = "STUDENT_ID", nullable = false)
     @ManyToOne(optional = false)
     private Student student;
-    
+
     @Temporal(TemporalType.DATE)
-    @Column(name = "ADMISSION_DATE", nullable = false)
+    @Column(name = "REGISTRATION_DATE", nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date admissionDate;
+    private Date registrationDate;
 
     @Column(name = "COURSE_PRICE")
     @Range(min = 0, max = 100000)
     private Double coursePrice;
 
-    public Admission() {
+    public Registration() {
     }
 
     public String getCode() {
@@ -59,14 +59,6 @@ public class Admission extends AbstractEntity {
         this.student = student;
     }
 
-    public Date getAdmissionDate() {
-        return admissionDate;
-    }
-
-    public void setAdmissionDate(Date admissionDate) {
-        this.admissionDate = admissionDate;
-    }
-
     public CourseFounded getCourseFounded() {
         return courseFounded;
     }
@@ -81,6 +73,14 @@ public class Admission extends AbstractEntity {
 
     public void setCoursePrice(Double coursePrice) {
         this.coursePrice = coursePrice;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
 }
