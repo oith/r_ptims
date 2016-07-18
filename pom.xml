@@ -63,7 +63,12 @@
             <version>5.2.4.Final</version>
         </dependency>
 
-        <!-- MySQL -->
+        <!--mvn install:install-file -Dfile=ojdbc6.jar -DgroupId=oracle -DartifactId=oracle -Dversion=6 -Dpackaging=jar-->
+        <dependency>
+            <groupId>oracle</groupId>
+            <artifactId>oracle</artifactId>
+            <version>6</version>
+        </dependency>
                 
         
         <dependency>
@@ -126,9 +131,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
-                <configuration>
-                    <debug>true</debug>
-                </configuration>
             </plugin>
         </plugins>
         <finalName>eims</finalName>
