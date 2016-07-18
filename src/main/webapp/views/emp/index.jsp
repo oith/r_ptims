@@ -21,7 +21,7 @@
         <table>
             <tr>
                 <td>Code</td>
-                <td>Name</td>
+                <td>Full Name</td>
                 <td>Facebook ID</td>
                 <td>Gender</td>
                 <td>Joining Date</td>
@@ -33,7 +33,7 @@
                 <tr>
                     <td><a href="<c:url value='/emp/edit-${employee.code}-employee' />">${employee.code}</a></td>
 
-                    <td>${employee.name}</td>
+                    <td>${employee.fullName}</td>
                     <td>${employee.fbId}</td>
                     <td>${employee.gender}</td>
                     <td>${employee.joiningDate}</td>

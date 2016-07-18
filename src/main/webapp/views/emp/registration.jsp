@@ -19,15 +19,15 @@
 
     <body>
 
-        <h2>Registration Form ggghhh</h2>
+        <h2>Instractor</h2>
 
         <form:form method="POST" modelAttribute="employee">
             <form:input type="hidden" path="id" id="id"/>
             <table>
                 <tr>
-                    <td><label for="name">Name: </label> </td>
-                    <td><form:input path="name" id="name"/></td>
-                    <td><form:errors path="name" cssClass="error"/></td>
+                    <td><label for="fullName">Full Name: </label> </td>
+                    <td><form:input path="fullName" id="fullName"/></td>
+                    <td><form:errors path="fullName" cssClass="error"/></td>
                 </tr>
                 <tr>
                     <td><label for="fbId">FaceBook ID </label> </td>
