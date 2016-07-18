@@ -1,64 +1,32 @@
 package eims.model.acad;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
+import eims.model.common.AbstractEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import java.math.BigInteger;
-import java.util.Set;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name = "COURSE")
 @XmlRootElement
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Course implements Serializable {
+public class Course extends AbstractEntity {
 
-    @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Basic(optional = false)
-    private BigInteger id;
-    @Version
-    private Integer version;
-    @Basic(optional = false)
     @Column(name = "CODE", unique = true, length = 20, nullable = false)
     private String code;
-    @Basic(optional = false)
     @Column(name = "FULL_NAME", length = 100, nullable = false)
     @NotEmpty
     @Size(min = 2, max = 100)
     private String fullName;
-
-    @JoinColumn(name = "GRADE_ID",  nullable = true)
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    private Grade grade;
-
-    @ManyToOne
-    private Course preRequisite;
-    @OneToMany(mappedBy = "preRequisite")
-    private Set<Course> courses;
+    @Column(name = "TOTAL_COURSE_HOUR")
+    @Range(min = 1, max = 120)
+    private Integer totalCourseHour;
+    @Column(name = "COURSE_OUTLINE", length = 500)
+    private String courseOutline;
 
     public Course() {
-    }
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
     }
 
     public String getCode() {
@@ -69,22 +37,6 @@ public class Course implements Serializable {
         this.code = code;
     }
 
-    public Course getPreRequisite() {
-        return preRequisite;
-    }
-
-    public void setPreRequisite(Course preRequisite) {
-        this.preRequisite = preRequisite;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-
     public String getFullName() {
         return fullName;
     }
@@ -93,20 +45,20 @@ public class Course implements Serializable {
         this.fullName = fullName;
     }
 
-    public Grade getGrade() {
-        return grade;
+    public Integer getTotalCourseHour() {
+        return totalCourseHour;
     }
 
-    public void setGrade(Grade grade) {
-        this.grade = grade;
+    public void setTotalCourseHour(Integer totalCourseHour) {
+        this.totalCourseHour = totalCourseHour;
     }
 
-    public Set<Course> getCourses() {
-        return courses;
+    public String getCourseOutline() {
+        return courseOutline;
     }
 
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
+    public void setCourseOutline(String courseOutline) {
+        this.courseOutline = courseOutline;
     }
 
     @Override
@@ -114,5 +66,4 @@ public class Course implements Serializable {
         //return ToStringBuilder.reflectionToString(this);
         return code + "-" + fullName;
     }
-
 }

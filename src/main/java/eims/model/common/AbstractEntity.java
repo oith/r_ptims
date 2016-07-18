@@ -1,40 +1,32 @@
-package eims.model.acad;
+package eims.model.common;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.math.BigInteger;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "CLASS_ROOM")
+@Table(name = "ABSTRACT_ENTITY")
 @XmlRootElement
-public class ClassRoom implements Serializable {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class AbstractEntity implements Serializable {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
     @Version
     private Integer version;
-    @JoinColumn(name = "GRADE_ID",  nullable = true)
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    private Grade grade;
-    @JoinColumn(name = "TEACHER_ID",  nullable = true)
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    private AcademicStaff teacher;
 
-    public ClassRoom() {
+    public AbstractEntity() {
     }
 
     public BigInteger getId() {
@@ -53,12 +45,10 @@ public class ClassRoom implements Serializable {
         this.version = version;
     }
 
-    public Grade getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Grade grade) {
-        this.grade = grade;
+    @Override
+    public String toString() {
+        //return ToStringBuilder.reflectionToString(this);
+        return id.toString();
     }
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -22,6 +23,7 @@ public class Employee extends Person {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "JOINING_DATE", nullable = false)
     @Past
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date joiningDate;
 
     @NotNull
@@ -29,38 +31,12 @@ public class Employee extends Person {
     @Column(name = "SALARY", nullable = false)
     private BigDecimal salary;
 
-    @NotNull
-    @Digits(integer = 8, fraction = 2)
-    @Column(name = "Basic", nullable = false)
-    private BigDecimal basic;
-
-    @NotNull
-    @Digits(integer = 8, fraction = 2)
-    @Column(name = "House_rent", nullable = false)
-    private BigDecimal houseRent;
-
     public BigDecimal getSalary() {
         return salary;
     }
 
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
-    }
-
-    public BigDecimal getBasic() {
-        return basic;
-    }
-
-    public void setBasic(BigDecimal basic) {
-        this.basic = basic;
-    }
-
-    public BigDecimal getHouseRent() {
-        return houseRent;
-    }
-
-    public void setHouseRent(BigDecimal houseRent) {
-        this.houseRent = houseRent;
     }
 
     public Date getJoiningDate() {

@@ -1,16 +1,12 @@
 package eims.model.acad;
 
+import eims.model.common.AbstractEntity;
 import eims.model.common.Address;
-import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,15 +15,13 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "INSTITUTE")
 @XmlRootElement
-public class Institute implements Serializable {
+public class Institute extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private BigInteger id;
     @Basic(optional = false)
     @Column(name = "CODE", unique = true, length = 20, nullable = false)
     private String code;
@@ -44,7 +38,7 @@ public class Institute implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "ORIENTATION_DATE")
     @Past
-    //@DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date orientationDate;
     @Column(name = "EMAIL", length = 30)
     @Email
@@ -53,14 +47,6 @@ public class Institute implements Serializable {
     private Address address;
 
     public Institute() {
-    }
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
     }
 
     public String getCode() {

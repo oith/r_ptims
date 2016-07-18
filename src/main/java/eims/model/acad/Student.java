@@ -6,6 +6,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "STUDENT")
-public abstract class Student extends Person {
+public class Student extends Person {
 
 }
