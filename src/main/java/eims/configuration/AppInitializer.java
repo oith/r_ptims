@@ -10,18 +10,18 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 public class AppInitializer implements WebApplicationInitializer {
 
-        @Override
-	public void onStartup(ServletContext container) throws ServletException {
+    @Override
+    public void onStartup(ServletContext container) throws ServletException {
 
-		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-		ctx.register(AppConfig.class);
-		ctx.setServletContext(container);
+        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+        ctx.register(AppConfig.class);
+        ctx.setServletContext(container);
 
-		ServletRegistration.Dynamic servlet = container.addServlet(
-				"dispatcher", new DispatcherServlet(ctx));
+        ServletRegistration.Dynamic servlet = container.addServlet(
+                "dispatcher", new DispatcherServlet(ctx));
 
-		servlet.setLoadOnStartup(1);
-		servlet.addMapping("/");
-	}
+        servlet.setLoadOnStartup(1);
+        servlet.addMapping("/");
+    }
 
 }

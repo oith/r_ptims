@@ -27,7 +27,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[]{"eims.model"});
+        sessionFactory.setPackagesToScan(environment.getRequiredProperty("entitymanager.packages.to.scan"));
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

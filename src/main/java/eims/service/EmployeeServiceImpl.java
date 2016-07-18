@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import eims.dao.EmployeeDao;
 import eims.model.hr.Employee;
+import java.math.BigInteger;
 
 @Service("employeeService")
 @Transactional
@@ -16,7 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeDao dao;
 
-    public Employee findById(Long id) {
+    public Employee findById(BigInteger id) {
         return dao.findById(id);
     }
 
@@ -32,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void updateEmployee(Employee employee) {
         Employee entity = dao.findById(employee.getId());
         if (entity != null) {
-            entity.setName(employee.getName());
+            entity.setFullName(employee.getFullName());
             entity.setFbId(employee.getFbId());
             entity.setGender(employee.getGender());
             entity.setJoiningDate(employee.getJoiningDate());
@@ -56,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return dao.findEmployeeByCode(code);
     }
 
-    public boolean isEmployeeCodeUnique(Long id, String code) {
+    public boolean isEmployeeCodeUnique(BigInteger id, String code) {
         Employee employee = findEmployeeByCode(code);
         return (employee == null || ((id != null) && (employee.getId() == id)));
     }

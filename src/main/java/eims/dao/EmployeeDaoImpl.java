@@ -5,12 +5,13 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import eims.model.hr.Employee;
+import java.math.BigInteger;
 
 @Repository("employeeDao")
-public class EmployeeDaoImpl extends AbstractDao<Long, Employee> implements EmployeeDao {
+public class EmployeeDaoImpl extends AbstractDao<BigInteger, Employee> implements EmployeeDao {
 
     @Override
-    public Employee findById(Long id) {
+    public Employee findById(BigInteger id) {
         return getByKey(id);
     }
 

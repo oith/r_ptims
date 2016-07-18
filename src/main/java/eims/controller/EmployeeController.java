@@ -17,7 +17,7 @@ import eims.service.EmployeeService;
 
 @Controller
 @RequestMapping("/emp")
-public class EmpController {
+public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
@@ -75,7 +75,7 @@ public class EmpController {
 
         employeeService.saveEmployee(employee);
 
-        model.addAttribute("success", "Employee " + employee.getName() + " registered successfully");
+        model.addAttribute("success", "Employee " + employee.getFullName() + " registered successfully");
         return "emp/success";
     }
 
@@ -111,7 +111,7 @@ public class EmpController {
 
         employeeService.updateEmployee(employee);
 
-        model.addAttribute("success", "Employee " + employee.getName() + " updated successfully");
+        model.addAttribute("success", "Employee " + employee.getFullName() + " updated successfully");
         return "emp/success";
     }
 

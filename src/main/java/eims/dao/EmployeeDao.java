@@ -2,10 +2,11 @@ package eims.dao;
 
 import java.util.List;
 import eims.model.hr.Employee;
+import java.math.BigInteger;
 
 public interface EmployeeDao {
 
-    Employee findById(Long id);
+    Employee findById(BigInteger id);
 
     void saveEmployee(Employee employee);
 

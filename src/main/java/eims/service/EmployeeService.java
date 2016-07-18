@@ -3,10 +3,11 @@ package eims.service;
 import java.util.List;
 
 import eims.model.hr.Employee;
+import java.math.BigInteger;
 
 public interface EmployeeService {
 
-    Employee findById(Long id);
+    Employee findById(BigInteger id);
 
     void saveEmployee(Employee employee);
 
@@ -18,6 +19,6 @@ public interface EmployeeService {
 
     Employee findEmployeeByCode(String code);
 
-    boolean isEmployeeCodeUnique(Long id, String code);
+    boolean isEmployeeCodeUnique(BigInteger id, String code);
 
 }
