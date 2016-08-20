@@ -133,7 +133,8 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     @Bean
     public org.springframework.web.filter.CharacterEncodingFilter characterEncodingFilter() {
         org.springframework.web.filter.CharacterEncodingFilter characterEncodingFilter = new org.springframework.web.filter.CharacterEncodingFilter();
-        characterEncodingFilter.setEncoding("utf-8");
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
         return characterEncodingFilter;
     }
 

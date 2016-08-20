@@ -27,11 +27,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/course")
- 
+
 public class CourseController extends _OithController {
 
     protected static final String MODEL = "course";
-    
+
     protected static final String MODELS = MODEL + "s";
     protected static final String INDEX = MODEL + "/index";
     protected static final String CREATE = MODEL + "/create";
@@ -42,28 +42,20 @@ public class CourseController extends _OithController {
     @Autowired
     private CourseService courseService;
 
-
-
-
-
- 
-
     private void commonPost(Course currObject) {
 
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(ModelMap model) { 
+    public String create(ModelMap model) {
         model.addAttribute(MODEL, new Course());
         return CREATE;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String save(@ModelAttribute(MODEL) @Valid Course currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes ) {
+    public String save(@ModelAttribute(MODEL) @Valid Course currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes) {
 
-
-
-    commonPost(currObject);
+        commonPost(currObject);
 
         if (!bindingResult.hasErrors()) {
             try {
@@ -73,15 +65,15 @@ public class CourseController extends _OithController {
             } catch (Exception e) {
                 errorHandler(bindingResult, e);
             }
-        } 
+        }
         return CREATE;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable("id") BigInteger id, ModelMap model, RedirectAttributes attributes) {
-       
+
         Course course = courseService.findById(id);
-        
+
         if (course == null) {
             addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_WAS_NOT_FOUND);
             return createRedirectViewPath(REQUEST_MAPPING_LIST);
@@ -91,13 +83,11 @@ public class CourseController extends _OithController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String update(@ModelAttribute(MODEL) @Valid Course currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes ) {
+    public String update(@ModelAttribute(MODEL) @Valid Course currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes) {
 
+        commonPost(currObject);
 
-
-    commonPost(currObject);
-
-        if (!bindingResult.hasErrors()){
+        if (!bindingResult.hasErrors()) {
             try {
                 Course course = courseService.update(currObject);
                 addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_EDITED, course.getCode());
@@ -108,7 +98,7 @@ public class CourseController extends _OithController {
         }
         return EDIT;
     }
-    
+
     @RequestMapping(value = "/copy/{id}", method = RequestMethod.GET)
     public String copy(@PathVariable("id") BigInteger id, ModelMap model, RedirectAttributes attributes) {
 
@@ -123,24 +113,22 @@ public class CourseController extends _OithController {
     }
 
     @RequestMapping(value = "/copy", method = RequestMethod.POST)
-    public String copied(@ModelAttribute(MODEL) @Valid Course currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes ) {
+    public String copied(@ModelAttribute(MODEL) @Valid Course currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes) {
 
-
-
-    commonPost(currObject);
+        commonPost(currObject);
 
         if (!bindingResult.hasErrors()) {
             try {
-               Course course = courseService.copy(currObject);
-               addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_EDITED, course.getCode());
-               return "redirect:/" + SHOW + "/" + course.getId();
+                Course course = courseService.copy(currObject);
+                addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_EDITED, course.getCode());
+                return "redirect:/" + SHOW + "/" + course.getId();
             } catch (Exception e) {
-               errorHandler(bindingResult, e);
+                errorHandler(bindingResult, e);
             }
-        } 
+        }
         return COPY;
     }
-    
+
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.POST)
     public String search(@ModelAttribute(SEARCH_CRITERIA) _SearchDTO searchCriteria, ModelMap model) {
         /*
@@ -160,7 +148,7 @@ public class CourseController extends _OithController {
             pages.add(i);
         }
         model.addAttribute("pages", pages);
-        */
+         */
         Iterable<Course> courses = courseService.findAll();
         model.addAttribute(MODELS, courses);
         return INDEX;
@@ -182,7 +170,7 @@ public class CourseController extends _OithController {
             pages.add(i);
         }
         model.addAttribute("pages", pages);
-        */
+         */
         Iterable<Course> courses = courseService.findAll();
         model.addAttribute(MODELS, courses);
         return INDEX;
@@ -190,7 +178,7 @@ public class CourseController extends _OithController {
 
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") BigInteger id, ModelMap model, RedirectAttributes attributes) {
-       
+
         Course course = courseService.findById(id);
 
         if (course == null) {
@@ -203,7 +191,7 @@ public class CourseController extends _OithController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") BigInteger id, RedirectAttributes attributes) {
-       
+
         try {
             Course deleted = courseService.delete(id);
             addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_DELETED, deleted.getCode());

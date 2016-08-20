@@ -6,6 +6,8 @@ import eims.model.security.AuthGender;
 import eims.model.security.AuthMenu;
 import eims.model.security.AuthRole;
 import eims.model.security.AuthUser;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.SortedSet;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,13 +21,13 @@ public class ProcServiceDefImpl implements ProcServiceDef {
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
-
+    
     @Override
     public void fastMenuGen(SortedSet<String> list) {
 
         EntityManager em = entityManagerFactory.createEntityManager();
 
-        try {
+        /*try {
             em.getTransaction().begin();
             int koto = em.createQuery("DELETE FROM " + AuthMenu.class.getSimpleName()).executeUpdate();
             em.getTransaction().commit();
@@ -35,7 +37,7 @@ public class ProcServiceDefImpl implements ProcServiceDef {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-        }
+        }*/
         try {
             em.getTransaction().begin();
 
