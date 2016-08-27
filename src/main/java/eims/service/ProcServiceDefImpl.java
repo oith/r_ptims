@@ -1,16 +1,21 @@
 package eims.service;
 
+import eims.model.acad.CourseFounded;
+import eims.model.acad.ProcOutCourseSchedule;
+import eims.model.acad.Room;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import eims.model.security.AuthGender;
 import eims.model.security.AuthMenu;
 import eims.model.security.AuthRole;
 import eims.model.security.AuthUser;
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.SortedSet;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import static org.apache.commons.lang.time.DateUtils.addDays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +26,7 @@ public class ProcServiceDefImpl implements ProcServiceDef {
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
-    
+
     @Override
     public void fastMenuGen(SortedSet<String> list) {
 
@@ -169,5 +174,64 @@ public class ProcServiceDefImpl implements ProcServiceDef {
         }
 
         return uuu;
+    }
+
+    @Override
+    public void makeSchedule(String cfCode) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            ///
+            //HQL
+            Query qu = em.createQuery("SELECT cf FROM " + CourseFounded.class.getSimpleName() + " cf WHERE cf.code=:code");
+            qu.setParameter("code", cfCode);
+            CourseFounded cf = (CourseFounded) qu.getSingleResult();
+
+            Set<Room> rooms = cf.getRooms();
+
+            Date curDate = cf.getOrientationDate();
+
+            int cnt = 0;
+
+            outer:
+            for (int i = 0; i < cf.getTotalNoOfClass(); i++) {
+
+                for (int j = 0; j < rooms.size(); j++) {
+
+                    Object[] room = rooms.toArray();
+                    cnt++;
+
+                    ProcOutCourseSchedule pocs = new ProcOutCourseSchedule(
+                            cf,
+                            (Room) room[j],
+                            curDate,
+                            cf.getStartTime(),
+                            cf.getEndTime()
+                    );
+
+                    if (j == 0) {
+                        curDate = addDays(curDate, 2);
+                    } else {
+                        curDate = addDays(curDate, 5);
+                    }
+                    em.persist(pocs);
+
+                    if (cf.getTotalNoOfClass() == cnt) {
+                        break outer;
+                    }
+                }
+
+            }
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("macsay: err makeSchedule: " + e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        } finally {
+            em.close();
+        }
     }
 }

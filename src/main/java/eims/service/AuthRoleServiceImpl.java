@@ -27,7 +27,7 @@ public class AuthRoleServiceImpl implements AuthRoleService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public AuthRole findById(BigInteger id) {
         AuthRole authRole=authRoleRepository.findOne(id);
 

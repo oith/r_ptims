@@ -24,6 +24,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @XmlRootElement
 public class CourseFounded extends AbstractEntity {
 
+    @Column(name = "CODE", unique = true, length = 20, nullable = false)
+    private String code;
     @JoinColumn(name = "COURSE_ID", nullable = false)
     @ManyToOne(optional = false)
     private Course course;
@@ -54,6 +56,14 @@ public class CourseFounded extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "COURSE_FOUNDED_STATUS", length = 30)
     private CourseFoundedStatus courseFoundedStatus;
+    @Temporal(TemporalType.TIME)
+    @Column(name = "START_TIME", nullable = false)
+    @DateTimeFormat(pattern = "HH:mm")
+    private Date startTime;
+    @Temporal(TemporalType.TIME)
+    @Column(name = "END_TIME", nullable = false)
+    @DateTimeFormat(pattern = "HH:mm")
+    private Date endTime;
 
     public CourseFounded() {
     }
@@ -120,6 +130,30 @@ public class CourseFounded extends AbstractEntity {
 
     public void setRooms(Set<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

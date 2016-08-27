@@ -3,6 +3,7 @@ package eims.model.acad;
 import eims.model.com.AbstractEntity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,11 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "PROC_OUT_COURSE_SCHEDULE")
+@Table(name = "PROC_OUT_COURSE_SCHEDULE", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"COURSE_FOUNDED_ID", "CLASS_DATE"})})
 @XmlRootElement
 public class ProcOutCourseSchedule extends AbstractEntity {
 
@@ -46,6 +49,15 @@ public class ProcOutCourseSchedule extends AbstractEntity {
 
     public ProcOutCourseSchedule() {
     }
+
+    public ProcOutCourseSchedule(CourseFounded courseFounded, Room room, Date classDate, Date startTime, Date endTime) {
+        this.courseFounded = courseFounded;
+        this.room = room;
+        this.classDate = classDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+  
 
     public CourseFounded getCourseFounded() {
         return courseFounded;

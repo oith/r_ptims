@@ -1,5 +1,6 @@
 package eims.controller;
 
+import eims.model.com.AdmProcess;
 import eims.model.security.AuthUser;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import eims.service.ProcServiceDef;
 import java.util.Enumeration;
 import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class _OithHomeController {
@@ -58,6 +60,12 @@ public class _OithHomeController {
         }
 
         return "layouts/homeSecure";
+    }
+
+    @RequestMapping(value = "/makeSchedule/{code}", method = RequestMethod.GET)
+    public String makeSchedule(@PathVariable("code") String code, ModelMap model) {
+        procServiceDef.makeSchedule(code);
+        return "index";
     }
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
