@@ -134,7 +134,7 @@
                 </span>
                 <span class='property-value' aria-labelledby='picFile'>
                     <c:url var='picFile' value='/authUser/getPhoto/${authUser.picFile}'/>
-<img height="110px" width="90px" alt='${authUser.picFile}' src='${picFile}'/>
+                    <img height="110px" width="90px" alt='${authUser.picFile}' src='${picFile}'/>
                 </span>
             </li>
         </c:if>
