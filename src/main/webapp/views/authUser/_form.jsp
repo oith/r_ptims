@@ -54,11 +54,10 @@
     </div>
     <div class='col-xs-12 col-sm-6 col-md-4 col-lg-3'>
         <div class='form-group'>
+        
             <form:label path='gender'><spring:message code='gender' text='Gender'/></form:label>
             <form:select class='form-control' path='gender' name='gender' id='gender' >
-                <form:option value='MALE' label='Male'/>
-                <form:option value='FEMALE' label='Female'/>
-                <form:option value='OTHER' label='Other'/>
+                <form:options items='${genders}' />
             </form:select>
             <form:errors path='gender' cssClass='error' element='div'/>
         </div>

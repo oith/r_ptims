@@ -55,6 +55,7 @@ public class AuthMenu extends AbstractEntity {
     private Boolean isActive;
 
     public AuthMenu() {
+    
     }
 
     public AuthMenu(String displayName, String urlPath) {

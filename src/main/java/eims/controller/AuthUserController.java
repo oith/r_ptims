@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/authUser")
 @SessionAttributes({"authRoles"})
+
 public class AuthUserController extends _OithController {
 
     protected static final String MODEL = "authUser";
@@ -81,6 +82,8 @@ public class AuthUserController extends _OithController {
             addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_WAS_NOT_FOUND);
             return createRedirectViewPath(REQUEST_MAPPING_LIST);
         }
+
+        model.addAttribute("genders", eims.model.security.AuthGender.values());
         model.addAttribute(MODEL, authUser);
         return EDIT;
     }
