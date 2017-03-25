@@ -244,6 +244,11 @@
             <version>3.3.0.Final</version>
         </dependency>
         <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+        <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>3.20.0-GA</version>
@@ -484,7 +489,7 @@
             <version>6</version>
         </dependency>
 
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derbyclient</artifactId>
             <version>10.12.1.1</version>
@@ -522,7 +527,7 @@
             <type>jar</type>
         </dependency>
         
-         <!-- JPA Provider (Hibernate) -->
+        <!-- JPA Provider (Hibernate) -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
@@ -584,46 +589,46 @@
     </build>
     
     <profiles>
-         <profile>
-             <id>prod</id>
-             <activation>
-                 <activeByDefault>true</activeByDefault>
-             </activation>
-             <build>
-                 <plugins>  
-                     <plugin>
-                         <groupId>org.apache.maven.plugins</groupId>
-                         <artifactId>maven-compiler-plugin</artifactId>
-                         <version>3.5.1</version>
-                         <configuration>
-                             <source>1.7</source>
-                             <target>1.7</target>
-                         </configuration>
-                     </plugin>
-                 </plugins>
-             </build>
-         </profile>
-         <profile>
-             <id>dev</id>
-             <activation>
-                 <activeByDefault>false</activeByDefault>
-             </activation>
-             <build>
-                 <plugins>  
-                     <plugin>
-                         <groupId>org.apache.maven.plugins</groupId>
-                         <artifactId>maven-compiler-plugin</artifactId>
-                         <version>3.5.1</version>
-                         <configuration>
-                             <source>1.7</source>
-                             <target>1.7</target>
-                             <includes>
-                                 <include>eims/model/**/*.java</include>
-                             </includes>
-                         </configuration>
-                     </plugin>
-                 </plugins>
-             </build>
-         </profile>
+        <profile>
+            <id>prod</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>  
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.5.1</version>
+                        <configuration>
+                            <source>1.7</source>
+                            <target>1.7</target>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>  
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.5.1</version>
+                        <configuration>
+                            <source>1.7</source>
+                            <target>1.7</target>
+                            <includes>
+                                <include>eims/model/**/*.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
