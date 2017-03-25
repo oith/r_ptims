@@ -27,11 +27,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/admModule")
- 
+
 public class AdmModuleController extends _OithController {
 
     protected static final String MODEL = "admModule";
-    
+
     protected static final String MODELS = MODEL + "s";
     protected static final String INDEX = MODEL + "/index";
     protected static final String CREATE = MODEL + "/create";
@@ -42,37 +42,31 @@ public class AdmModuleController extends _OithController {
     @Autowired
     private AdmModuleService admModuleService;
 
-
-
     @RequestMapping(value = "/getCodableDTO", method = RequestMethod.GET)
     public @ResponseBody
-    String getCodableDTO(@RequestParam(value="code") String code) {
+    String getCodableDTO(@RequestParam(value = "code") String code) {
         AdmModule codable = admModuleService.findByCode(code);
-       
+
         if (codable != null) {
             return codable.getFullName();
         }
         return "Not Found";
     }
 
- 
-
     private void commonPost(AdmModule currObject) {
 
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(ModelMap model) { 
+    public String create(ModelMap model) {
         model.addAttribute(MODEL, new AdmModule());
         return CREATE;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String save(@ModelAttribute(MODEL) @Valid AdmModule currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes ) {
+    public String save(@ModelAttribute(MODEL) @Valid AdmModule currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes) {
 
-
-
-    commonPost(currObject);
+        commonPost(currObject);
 
         if (!bindingResult.hasErrors()) {
             try {
@@ -82,15 +76,15 @@ public class AdmModuleController extends _OithController {
             } catch (Exception e) {
                 errorHandler(bindingResult, e);
             }
-        } 
+        }
         return CREATE;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable("id") BigInteger id, ModelMap model, RedirectAttributes attributes) {
-       
+
         AdmModule admModule = admModuleService.findById(id);
-        
+
         if (admModule == null) {
             addErrorMessage(attributes, ERROR_MESSAGE_KEY_EDITED_WAS_NOT_FOUND);
             return createRedirectViewPath(REQUEST_MAPPING_LIST);
@@ -100,13 +94,11 @@ public class AdmModuleController extends _OithController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String update(@ModelAttribute(MODEL) @Valid AdmModule currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes ) {
+    public String update(@ModelAttribute(MODEL) @Valid AdmModule currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes) {
 
+        commonPost(currObject);
 
-
-    commonPost(currObject);
-
-        if (!bindingResult.hasErrors()){
+        if (!bindingResult.hasErrors()) {
             try {
                 AdmModule admModule = admModuleService.update(currObject);
                 addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_EDITED, admModule.getCode());
@@ -117,7 +109,7 @@ public class AdmModuleController extends _OithController {
         }
         return EDIT;
     }
-    
+
     @RequestMapping(value = "/copy/{id}", method = RequestMethod.GET)
     public String copy(@PathVariable("id") BigInteger id, ModelMap model, RedirectAttributes attributes) {
 
@@ -132,24 +124,22 @@ public class AdmModuleController extends _OithController {
     }
 
     @RequestMapping(value = "/copy", method = RequestMethod.POST)
-    public String copied(@ModelAttribute(MODEL) @Valid AdmModule currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes ) {
+    public String copied(@ModelAttribute(MODEL) @Valid AdmModule currObject, BindingResult bindingResult, ModelMap model, RedirectAttributes attributes) {
 
-
-
-    commonPost(currObject);
+        commonPost(currObject);
 
         if (!bindingResult.hasErrors()) {
             try {
-               AdmModule admModule = admModuleService.copy(currObject);
-               addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_EDITED, admModule.getCode());
-               return "redirect:/" + SHOW + "/" + admModule.getId();
+                AdmModule admModule = admModuleService.copy(currObject);
+                addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_EDITED, admModule.getCode());
+                return "redirect:/" + SHOW + "/" + admModule.getId();
             } catch (Exception e) {
-               errorHandler(bindingResult, e);
+                errorHandler(bindingResult, e);
             }
-        } 
+        }
         return COPY;
     }
-    
+
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.POST)
     public String search(@ModelAttribute(SEARCH_CRITERIA) _SearchDTO searchCriteria, ModelMap model) {
         /*
@@ -169,7 +159,7 @@ public class AdmModuleController extends _OithController {
             pages.add(i);
         }
         model.addAttribute("pages", pages);
-        */
+         */
         Iterable<AdmModule> admModules = admModuleService.findAll();
         model.addAttribute(MODELS, admModules);
         return INDEX;
@@ -191,7 +181,7 @@ public class AdmModuleController extends _OithController {
             pages.add(i);
         }
         model.addAttribute("pages", pages);
-        */
+         */
         Iterable<AdmModule> admModules = admModuleService.findAll();
         model.addAttribute(MODELS, admModules);
         return INDEX;
@@ -199,7 +189,7 @@ public class AdmModuleController extends _OithController {
 
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") BigInteger id, ModelMap model, RedirectAttributes attributes) {
-       
+
         AdmModule admModule = admModuleService.findById(id);
 
         if (admModule == null) {
@@ -212,7 +202,7 @@ public class AdmModuleController extends _OithController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") BigInteger id, RedirectAttributes attributes) {
-       
+
         try {
             AdmModule deleted = admModuleService.delete(id);
             addFeedbackMessage(attributes, FEEDBACK_MESSAGE_KEY_DELETED, deleted.getCode());

@@ -26,8 +26,8 @@ public class AdmModuleServiceImpl implements AdmModuleService {
 
     @Transactional
     @Override
-    public AdmModule create(AdmModule lookup) {
-        return admModuleRepository.save(lookup);
+    public AdmModule create(AdmModule admModule) {
+        return admModuleRepository.save(admModule);
     }
 
     @Override
@@ -57,11 +57,11 @@ public class AdmModuleServiceImpl implements AdmModuleService {
     public Iterable<AdmModule> findAll() {
         Iterable<AdmModule> admModules=admModuleRepository.findAll();
         
-        for (AdmModule admModule : admModules) {
+        //for (AdmModule admModule : admModules) {
 
         //Hibernate.initialize(admModule.getA());
         //Hibernate.initialize(admModule.getZs());
-        }
+        //}
         
         return admModules;
     }

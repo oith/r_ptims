@@ -23,6 +23,7 @@ public class AdmParamServiceImpl implements AdmParamService {
     @Transactional
     @Override
     public AdmParam create(AdmParam lookup) {
+        
         return admParamRepository.save(lookup);
     }
 

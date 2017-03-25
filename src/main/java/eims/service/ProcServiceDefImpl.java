@@ -9,14 +9,16 @@ import eims.model.security.AuthGender;
 import eims.model.security.AuthMenu;
 import eims.model.security.AuthRole;
 import eims.model.security.AuthUser;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.SortedSet;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import static org.apache.commons.lang.time.DateUtils.addDays;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProcServiceDefImpl implements ProcServiceDef {
 
     @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    private EntityManagerFactory entityManagerFactory ;
 
     @Override
     public void fastMenuGen(SortedSet<String> list) {
@@ -175,13 +177,18 @@ public class ProcServiceDefImpl implements ProcServiceDef {
 
         return uuu;
     }
+    
+    @Autowired
+    JavaMailSenderImpl javaMailSenderImpl;
 
     @Override
     public void makeSchedule(String cfCode) {
         EntityManager em = entityManagerFactory.createEntityManager();
 
         try {
-            em.getTransaction().begin();
+           EntityTransaction et=  em.getTransaction();
+           et.begin();
+            //em.getTransaction().begin();
             ///
             //HQL
             Query qu = em.createQuery("SELECT cf FROM " + CourseFounded.class.getSimpleName() + " cf WHERE cf.code=:code");
@@ -221,10 +228,15 @@ public class ProcServiceDefImpl implements ProcServiceDef {
                         break outer;
                     }
                 }
-
             }
 
             em.getTransaction().commit();
+            
+            SimpleMailMessage  fff=new SimpleMailMessage();
+            fff.setTo("manik@abc.vom");
+            fff.setSubject("test email");
+           // fff.se
+//            javaMailSenderImpl.send(fff);
         } catch (Exception e) {
             System.out.println("macsay: err makeSchedule: " + e);
             if (em.getTransaction().isActive()) {

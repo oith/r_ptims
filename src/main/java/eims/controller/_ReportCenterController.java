@@ -39,14 +39,17 @@ public class _ReportCenterController extends _OithController {
         // model.addAttribute(MODEL, new ZxLookup());
         // Map<String, String> jjj = new LinkedHashMap<>();
         // jjj.put("title", "");
-        model.addAttribute("rrr", new Lookup());
-        // model.addAttribute("reportName", "");
+        //model.addAttribute("rrr", new Lookup());
+        //model.addAttribute("reportName", "");
         return "etc/reportCenter";
     }
 
     @RequestMapping(value = "/reportCenter", method = RequestMethod.POST)
     public void doReportPdf(@RequestParam(value = "title") String title,
-            @RequestParam(value = "P_ATTN_DATE") String P_ATTN_DATE, HttpServletRequest request, HttpServletResponse response) {
+            @RequestParam(value = "P_ATTN_DATE") String P_ATTN_DATE, 
+             @RequestParam(value = "P_FROM_DATE") String P_FROM_DATE, 
+              @RequestParam(value = "P_TO_DATE") String P_TO_DATE, 
+            HttpServletRequest request, HttpServletResponse response) {
 
         //JRDataSource ds = new JRBeanCollectionDataSource(collDS);
         //params is used for passing extra parameters
