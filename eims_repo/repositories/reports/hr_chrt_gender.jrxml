@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hr_chrt_gender" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="56a2b08e-4936-4d7f-b17e-13465303852a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_EMP_GRP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT nvl(religion,'OTHERS') BLOOD_GROUP, COUNT(*) cnt
+FROM PROC_OUT_EMP
+where ($P{P_EMP_GRP} is null or emp_grp=$P{P_EMP_GRP})
+GROUP BY religion]]>
+	</queryString>
+	<field name="BLOOD_GROUP" class="java.lang.String"/>
+	<field name="CNT" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="54" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="236" y="0" width="100" height="20" uuid="6363d074-4113-454d-8c70-a3689c6b3199"/>
+				<textFieldExpression><![CDATA[($P{P_EMP_GRP}==null || $P{P_EMP_GRP}.isEmpty()) ? "ALL EMP" : $P{P_EMP_GRP}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="174" splitType="Stretch">
+			<pie3DChart>
+				<chart isShowLegend="true" evaluationTime="Report" theme="default">
+					<reportElement x="28" y="0" width="236" height="140" uuid="2adff46e-98f9-4c79-b034-306c71017fd6"/>
+					<chartTitle position="Top"/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{BLOOD_GROUP}]]></keyExpression>
+					<valueExpression><![CDATA[$F{CNT}]]></valueExpression>
+					<labelExpression><![CDATA[$F{BLOOD_GROUP}]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+			<bar3DChart>
+				<chart>
+					<reportElement x="298" y="0" width="233" height="140" uuid="62eb5cd0-e3e4-4471-971b-c3908d3f67ab"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Dummy Series"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{BLOOD_GROUP}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{CNT}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
+</jasperReport>
